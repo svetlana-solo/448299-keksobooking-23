@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
 * Студент: [Светлана Солодовникова](https://up.htmlacademy.ru/javascript/23/user/448299).
-* Наставник: `Неизвестно`.
+* Наставник: [Евгений Алипкин] (https://htmlacademy.ru/profile/ealipkin).
 
 ---
 
