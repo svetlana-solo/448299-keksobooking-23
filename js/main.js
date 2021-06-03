@@ -1,42 +1,48 @@
-const returnRandomInteger = function (min, max) {
-  if (min >= max) {
-    return min = 'Первое число должно быть меньше последнего';
-  }
-  if (min < 0) {
-    return min = 'Число должно быть положительное';
-  }
-  if (max < 0) {
-    return max = 'Число должно быть положительное';
-  }
-  else {
-    // случайное число от min до (max+1)
-    const randomNumber = min + Math.random() * (max + 1 - min);
-    return Math.floor(randomNumber);
-  }
+const getRandomNumberInPeriod = function (min, max) {
+  return min + Math.random() * (max + 1 - min);
 };
 
-returnRandomInteger(5, 9);
-
-const returnRandomNum = function (min, max, decimalPlace) {
-  if (min >= max) {
-    return min = 'Первое число должно быть меньше последнего';
+const checkPeriod = function (min, max) {
+  if (min < 0 || max < 0) {
+    return true;
   }
-  if (min < 0) {
-    return min = 'Число должно быть положительное';
-  }
-  if (max < 0) {
-    return max = 'Число должно быть положительное';
-  }
-  if (decimalPlace < 0) {
-    return decimalPlace = 'Число должно быть положительное';
-  }
-  else {
-    // случайное число от min до (max+1)
-    const randomNum = min + Math.random() * (max + 1 - min);
-    return randomNum.toFixed(decimalPlace);
-  }
+  return false;
 };
 
-returnRandomNum(5, 9, 3);
+const checkType = function (min, max) {
+  if (typeof min !== 'number' || typeof max !== 'number') {
+    return true;
+  }
+  return false;
+};
 
+const getRandomInteger = function (min, max) {
+  if (min >= max) {
+    return 'Первое число должно быть меньше второго';
+  }
+  if (checkPeriod) {
+    return 'Число должно быть положительное';
+  }
+  if (checkType) {
+    return 'Введите число';
+  }
+  return Math.floor(getRandomNumberInPeriod(min, max));
+};
+//не могу пока понять почему не работет проверка по типу и как ее сделать универсальной, чтобы она проверяла не только min, max, а любые заданные параметры.
 
+getRandomInteger(5, 9);
+
+const getRandomFloatNumber = function (min, max, decimalPlaces) {
+  if (min >= max) {
+    return 'Первое число должно быть меньше второго ';
+  }
+  if (checkPeriod) {
+    return 'Число должно быть положительное';
+  }
+  if (decimalPlaces < 0) {
+    return 'Укажите положительное количество цифр после запятой';
+  }
+  return +(getRandomNumberInPeriod(min, max).toFixed(decimalPlaces));
+};
+
+getRandomFloatNumber(5, 9, 3);
