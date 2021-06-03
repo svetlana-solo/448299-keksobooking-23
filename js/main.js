@@ -20,10 +20,10 @@ const getRandomInteger = function (min, max) {
   if (min >= max) {
     return 'Первое число должно быть меньше второго';
   }
-  if (checkPeriod) {
+  if (checkPeriod(min, max)) {
     return 'Число должно быть положительное';
   }
-  if (checkType) {
+  if (checkType(min, max)) {
     return 'Введите число';
   }
   return Math.floor(getRandomNumberInPeriod(min, max));
@@ -36,8 +36,11 @@ const getRandomFloatNumber = function (min, max, decimalPlaces) {
   if (min >= max) {
     return 'Первое число должно быть меньше второго ';
   }
-  if (checkPeriod) {
+  if (checkPeriod(min, max)) {
     return 'Число должно быть положительное';
+  }
+  if (checkType(min, max)) {
+    return 'Введите число';
   }
   if (decimalPlaces < 0) {
     return 'Укажите положительное количество цифр после запятой';
