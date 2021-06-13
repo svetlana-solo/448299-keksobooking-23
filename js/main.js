@@ -57,15 +57,15 @@ const checkPeriod = function (min, max) {
   return false;
 };
 
-const checkType = function (min, max) {
-  if (typeof min !== 'number' || typeof max !== 'number') {
+const checkType = function (number) {
+  if (typeof number !== 'number') {
     return true;
   }
   return false;
 };
 
 const getRandomPositiveInteger = function (min, max) {
-  if (checkType(min, max)) {
+  if (checkType(min) || checkType(max)) {
     return 'Введите число';
   }
   if (checkPeriod(min, max)) {
@@ -78,7 +78,10 @@ const getRandomPositiveInteger = function (min, max) {
 };
 
 const getRandomPositiveFloat = function (min, max, decimalPlaces) {
-  if (checkType(min, max) || checkType(decimalPlaces)) {
+  if (checkType(min) || checkType(max) || checkType(decimalPlaces)) {
+    return 'Введите число';
+  }
+  if (typeof (decimalPlaces) !== 'number') {
     return 'Введите число';
   }
   if (checkPeriod(min, max)) {
@@ -96,14 +99,12 @@ const getRandomPositiveFloat = function (min, max, decimalPlaces) {
 
 const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
 
-const createOffer = (index) => {
-  const lat = getRandomPositiveFloat(MIN_LAT, MAX_LAT, DECIMAL_PLACES);
-  const lng = getRandomPositiveFloat(MIN_LNG, MAX_LNG, DECIMAL_PLACES);
+const createOffer = (index, location) => {
   const randomMaxFeature = getRandomPositiveInteger(1, FEATURES.length - 1);
   const randomMaxPhoto = getRandomPositiveInteger(1, PHOTOS.length - 1);
   return {
     title: `Заголовок${index}`,
-    address: `${lat}, ${lng}`,
+    address: `${location.lat}, ${location.lng}`,
     price: getRandomPositiveInteger(MIN_PRICE, MAX_PRICE),
     type: getRandomArrayElement(TYPES),
     rooms: getRandomPositiveInteger(MIN_ROOM, MAX_ROOM),
@@ -113,21 +114,24 @@ const createOffer = (index) => {
     features: FEATURES.slice(0, randomMaxFeature),
     description: getRandomArrayElement(DESCRIPTIONS),
     photos: PHOTOS.slice(0, randomMaxPhoto),
-    location: {
-      lat,
-      lng,
-    },
   };
 };
 
 const ads = new Array(QUANTITY).fill('').map((currentValue, index) => {
   const correctedIndex = index + 1;
   const userNumber = correctedIndex.toString().padStart(2, '0');
+  const lat = getRandomPositiveFloat(MIN_LAT, MAX_LAT, DECIMAL_PLACES);
+  const lng = getRandomPositiveFloat(MIN_LNG, MAX_LNG, DECIMAL_PLACES);
+  const location = {
+    lat,
+    lng,
+  };
   return {
     author: {
-      avatar: `img/avatars/user${userNumber}.png`,
+      avatar: `img / avatars / user${userNumber}.png`,
     },
-    offer: createOffer(correctedIndex),
+    offer: createOffer(correctedIndex, location),
+    location,
   };
 });
 
