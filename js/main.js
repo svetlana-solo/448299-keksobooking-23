@@ -33,9 +33,22 @@ const PHOTOS = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
 ];
 
+const QUANTITY = 10;
+const MINLAT = 35.65000;
+const MAXLAT = 35.70000;
+const MINLNG = 139.70000;
+const MAXLNG = 139.80000;
+const DECIMALPLACES = 5;
+const MINPRICE = 0;
+const MAXPRICE = 100000;
+const MINROOM = 1;
+const MAXROOM = 4;
+const MINGUEST = 1;
+const MAXGUEST = 3;
+
 const getRandomNumberInPeriod = function (min, max) {
   return min + Math.random() * (max + 1 - min);
-};
+}; git
 
 const checkPeriod = function (min, max) {
   if (min < 0 || max < 0) {
@@ -84,33 +97,22 @@ const getRandomPositiveFloat = function (min, max, decimalPlaces) {
 const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
 
 const createOffer = (index) => {
-  const minLat = 35.65000;
-  const maxLat = 35.70000;
-  const minLng = 139.70000;
-  const maxLng = 139.80000;
-  const decimalPlaces = 5;
-  const lat = getRandomPositiveFloat(minLat, maxLat, decimalPlaces);
-  const lng = getRandomPositiveFloat(minLng, maxLng, decimalPlaces);
+  const lat = getRandomPositiveFloat(MINLAT, MAXLAT, DECIMALPLACES);
+  const lng = getRandomPositiveFloat(MINLNG, MAXLNG, DECIMALPLACES);
   const randomMaxFeature = getRandomPositiveInteger(1, FEATURES.length - 1);
   const randomMaxPhoto = getRandomPositiveInteger(1, PHOTOS.length - 1);
-  const min = 0;
-  const minPosition = 1;
-  const maxPrice = 100000;
-  const maxRoom = 4;
-  const maxGuest = 3;
-  //Если у меня эти переменные используются только в этой функцие - могу я объявить их внутри и не выносить на самый верх?
   return {
     title: `Заголовок${index}`,
     address: `${lat}, ${lng}`,
-    price: getRandomPositiveInteger(min, maxPrice),
+    price: getRandomPositiveInteger(MINPRICE, MAXPRICE),
     type: getRandomArrayElement(TYPES),
-    rooms: getRandomPositiveInteger(minPosition, maxRoom),
-    guests: getRandomPositiveInteger(minPosition, maxGuest),
+    rooms: getRandomPositiveInteger(MINROOM, MAXROOM),
+    guests: getRandomPositiveInteger(MINGUEST, MAXGUEST),
     checkin: getRandomArrayElement(TIMES),
     checkout: getRandomArrayElement(TIMES),
-    features: FEATURES.slice(min, randomMaxFeature),
+    features: FEATURES.slice(0, randomMaxFeature),
     description: getRandomArrayElement(DESCRIPTIONS),
-    photos: PHOTOS.slice(min, randomMaxPhoto),
+    photos: PHOTOS.slice(0, randomMaxPhoto),
     location: {
       lat,
       lng,
@@ -118,7 +120,7 @@ const createOffer = (index) => {
   };
 };
 
-const ads = new Array(10).fill('').map((currentValue, index) => {
+const ads = new Array(QUANTITY).fill('').map((currentValue, index) => {
   const correctedIndex = index + 1;
   const userNumber = correctedIndex.toString().padStart(2, '0');
   return {
