@@ -48,7 +48,7 @@ const MAXGUEST = 3;
 
 const getRandomNumberInPeriod = function (min, max) {
   return min + Math.random() * (max + 1 - min);
-}; git
+};
 
 const checkPeriod = function (min, max) {
   if (min < 0 || max < 0) {
@@ -131,4 +131,4 @@ const ads = new Array(QUANTITY).fill('').map((currentValue, index) => {
   };
 });
 
-console.log(ads);
+ads;
