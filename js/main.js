@@ -128,7 +128,7 @@ const ads = new Array(QUANTITY).fill('').map((currentValue, index) => {
   };
   return {
     author: {
-      avatar: `img / avatars / user${userNumber}.png`,
+      avatar: `img/avatars/user${userNumber}.png`,
     },
     offer: createOffer(correctedIndex, location),
     location,
