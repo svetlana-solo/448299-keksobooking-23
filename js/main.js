@@ -1,11 +1,3 @@
-import { getRandomPositiveInteger, getRandomPositiveFloat, createOffer, ads } from './util.js';
-import './data.js';
-import './map.js';
-
-getRandomPositiveInteger();
-
-getRandomPositiveFloat();
-
-createOffer();
-
-ads();
+import { createAds } from './data.js';
+const QUANTITY = 10;
+console.log(createAds(QUANTITY));
