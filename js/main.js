@@ -1,3 +1,6 @@
 import { createAds } from './data.js';
+import { printAds } from './map.js';
 const QUANTITY = 10;
-console.log(createAds(QUANTITY));
+const similarAds = createAds(QUANTITY);
+printAds(similarAds);
+console.log(similarAds);
