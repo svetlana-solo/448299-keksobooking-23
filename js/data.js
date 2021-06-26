@@ -83,15 +83,4 @@ const createAds = (count) => new Array(count).fill('').map((currentValue, index)
   };
 });
 
-//const featuresListElement = document.querySelector('.popup__features');
-//const modifiers = FEATURES.map((features) => `popup__features--${features}`);
-
-//featuresListElement.querySelectorAll('.popup__feature')
-//  .forEach((item) => {
-//    const modifier = item.classlist[0];
-//    if (!modifiers.includes(modifier)) {
-//      item.remove();
-//    }
-//  });
-
 export { createAds };
