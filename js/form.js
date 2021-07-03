@@ -73,8 +73,8 @@ price.addEventListener('input', () => {
   price.reportValidity();
 });
 
-onTypeChange();
-onRoomNumberChange();
+setPriceAtributes();
+filterRoomCapacity();
 
 export {
   disableForm,
