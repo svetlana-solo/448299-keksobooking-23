@@ -73,6 +73,9 @@ price.addEventListener('input', () => {
   price.reportValidity();
 });
 
+onTypeChange();
+onRoomNumberChange();
+
 export {
   disableForm,
   enableForm
