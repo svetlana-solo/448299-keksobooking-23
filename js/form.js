@@ -49,7 +49,7 @@ const onCheckTimeGroupChange = (evt) => {
   checkOut.value = evt.target.value;
 };
 
-const roomCapacityFilter = () => {
+const filterRoomCapacity = () => {
   capacity.innerHTML = ROOM_CAPACITY[roomNumber.value];
 };
 
@@ -58,7 +58,7 @@ const onTypeChange = () => {
 };
 
 const onRoomNumberChange = () => {
-  roomCapacityFilter();
+  filterRoomCapacity();
 };
 
 type.addEventListener('change', onTypeChange);
