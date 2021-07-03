@@ -1,5 +1,20 @@
 import { toggleFormElements } from './util.js';
 
+const TYPE_MIN_COSTS = {
+  bungalow: 0,
+  flat: 1000,
+  hotel: 3000,
+  house: 5000,
+  palace: 10000,
+};
+
+const ROOM_CAPACITY = {
+  1: '<option value="1">для 1 гостя</option>',
+  2: '<option value="2">для 2 гостей</option> <option value="1"> для 1 гостя</option>',
+  3: '<option value="3">для 3 гостей</option> <option value="2">для 2 гостей</option> <option value="1">для 1 гостя</option>',
+  100: '<option value="0">не для гостей</option>',
+};
+
 const form = document.querySelector('.ad-form');
 const addFormElements = Array.from(form.elements);
 
@@ -21,41 +36,34 @@ const checkIn = form.querySelector('#timein');
 const checkOut = form.querySelector('#timeout');
 const checkTimeGroup = form.querySelector('.ad-form__element--time');
 
-
-const typeMinCosts = {
-  bungalow: 0,
-  flat: 1000,
-  hotel: 3000,
-  house: 5000,
-  palace: 10000,
-};
-
 const roomNumber = form.querySelector('#room_number');
 const capacity = form.querySelector('#capacity');
-const roomCapacity = {
-  1: '<option value="1">для 1 гостя</option>',
-  2: '<option value="2">для 2 гостей</option> <option value="1"> для 1 гостя</option>',
-  3: '<option value="3">для 3 гостей</option> <option value="2">для 2 гостей</option> <option value="1">для 1 гостя</option>',
-  100: '<option value="0">не для гостей</option>',
+
+const setPriceAtributes = () => {
+  price.min = TYPE_MIN_COSTS[type.value];
+  price.placeholder = TYPE_MIN_COSTS[type.value];
 };
 
-const typePriceFilterChange = () => {
-  price.min = typeMinCosts[type.value];
-  price.placeholder = typeMinCosts[type.value];
-};
-
-const checkTimeChange = (evt) => {
+const onCheckTimeGroupChange = (evt) => {
   checkIn.value = evt.target.value;
   checkOut.value = evt.target.value;
 };
 
-const roomCapacityFilterChange = () => {
-  capacity.innerHTML = roomCapacity[roomNumber.value];
+const filterRoomCapacity = () => {
+  capacity.innerHTML = ROOM_CAPACITY[roomNumber.value];
 };
 
-type.addEventListener('change', typePriceFilterChange);
-checkTimeGroup.addEventListener('change', checkTimeChange);
-roomNumber.addEventListener('change', roomCapacityFilterChange);
+const onTypeChange = () => {
+  setPriceAtributes();
+};
+
+const onRoomNumberChange = () => {
+  filterRoomCapacity();
+};
+
+type.addEventListener('change', onTypeChange);
+checkTimeGroup.addEventListener('change', onCheckTimeGroupChange);
+roomNumber.addEventListener('change', onRoomNumberChange);
 
 title.addEventListener('input', () => {
   title.reportValidity();
@@ -65,12 +73,10 @@ price.addEventListener('input', () => {
   price.reportValidity();
 });
 
-typePriceFilterChange();
-roomCapacityFilterChange();
-typePriceFilterChange();
+setPriceAtributes();
+filterRoomCapacity();
 
 export {
   disableForm,
-  enableForm,
-  typePriceFilterChange
+  enableForm
 };

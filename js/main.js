@@ -2,8 +2,7 @@ import { createAds } from './data.js';
 import { printAd } from './ad.js';
 import {
   disableForm,
-  enableForm,
-  typePriceFilterChange
+  enableForm
 } from './form.js';
 import {
   disableFilters,
@@ -33,4 +32,3 @@ setTimeout(() => {
   enablePage();
 }, 2000);
 
-typePriceFilterChange();
