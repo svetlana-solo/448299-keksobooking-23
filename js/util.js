@@ -51,4 +51,8 @@ const getRandomPositiveFloat = function (min, max, decimalPlaces) {
 
 const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
 
-export { getRandomPositiveInteger, getRandomArrayElement, getRandomPositiveFloat };
+const toggleFormElements = (elements, status) => {
+  elements.forEach((item) => item.disabled = status);
+};
+
+export { getRandomPositiveInteger, getRandomArrayElement, getRandomPositiveFloat, toggleFormElements };
