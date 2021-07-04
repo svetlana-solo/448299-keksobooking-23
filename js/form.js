@@ -38,6 +38,7 @@ const checkTimeGroup = form.querySelector('.ad-form__element--time');
 
 const roomNumber = form.querySelector('#room_number');
 const capacity = form.querySelector('#capacity');
+const address = form.querySelector('#address');
 
 const setPriceAtributes = () => {
   price.min = TYPE_MIN_COSTS[type.value];
@@ -73,10 +74,13 @@ price.addEventListener('input', () => {
   price.reportValidity();
 });
 
+address.setAttribute('readonly', 'readonly');
+
 setPriceAtributes();
 filterRoomCapacity();
 
 export {
   disableForm,
-  enableForm
+  enableForm,
+  address
 };

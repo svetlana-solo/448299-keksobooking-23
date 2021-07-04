@@ -32,3 +32,6 @@ setTimeout(() => {
   enablePage();
 }, 2000);
 
+export {
+  disablePage, enablePage
+};
