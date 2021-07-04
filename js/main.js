@@ -8,6 +8,8 @@ import {
   disableFilters,
   enableFilters
 } from './filters.js';
+import { getMap } from './map.js';
+import './map.js';
 
 const QUANTITY = 10;
 
@@ -27,10 +29,13 @@ const enablePage = () => {
   printAd(firstAd, mapCanvas);
 };
 
+getMap();
+
 disablePage();
 setTimeout(() => {
   enablePage();
 }, 2000);
+
 
 export {
   disablePage, enablePage
