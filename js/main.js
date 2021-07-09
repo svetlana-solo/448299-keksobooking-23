@@ -1,5 +1,3 @@
-import { createAds } from './data.js';
-import { printAd } from './ad.js';
 import {
   disableForm,
   enableForm
@@ -8,10 +6,9 @@ import {
   disableFilters,
   enableFilters
 } from './filters.js';
-import { getMap } from './map.js';
-import './map.js';
-
-const QUANTITY = 10;
+import {
+  getMap
+} from './map.js';
 
 const mapCanvas = document.querySelector('.map__canvas');
 
@@ -23,20 +20,12 @@ const disablePage = () => {
 const enablePage = () => {
   enableForm();
   enableFilters();
-
-  const similarAds = createAds(QUANTITY);
-  const firstAd = similarAds[0];
-  printAd(firstAd, mapCanvas);
 };
 
-getMap();
-
 disablePage();
-setTimeout(() => {
-  enablePage();
-}, 2000);
-
+getMap(mapCanvas);
 
 export {
-  disablePage, enablePage
+  disablePage,
+  enablePage
 };

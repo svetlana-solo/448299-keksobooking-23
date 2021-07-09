@@ -1,5 +1,12 @@
-import { printAd } from './ad.js';
-import { address } from './form.js';
+import {
+  createCard
+} from './ad.js';
+import {
+  createAds
+} from './data.js';
+import {
+  address
+} from './form.js';
 import {
   enablePage
 } from './main.js';
@@ -21,8 +28,7 @@ const getMap = () => {
     }, ZOOM);
 
   L.tileLayer(
-    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-    {
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     },
   ).addTo(map);
@@ -53,47 +59,43 @@ const getMap = () => {
     iconAnchor: [26, 52],
   });
 
-  adIcon;
-  let markers = [];
+  const markerGroup = L.layerGroup().addTo(map);
 
   const createAdPins = (ads) => {
-    ads
-      .slice(0, QUANTITY)
-      .forEach((offer) => {
-        const marker = L.marker(
-          {
-            lat: offer.location.lat,
-            lng: offer.location.lng,
-          },
-          {
-            icon: adIcon,
+    ads.forEach((ad) => {
+      const {
+        location,
+      } = ad;
+      const marker = L.marker({
+        lat: location.lat,
+        lng: location.lng,
+      }, {
+        icon: adIcon,
+      });
+      marker
+        .addTo(markerGroup)
+        .bindPopup(
+          createCard(ad), {
+            keepInView: true,
           },
         );
-
-        markers.push(marker);
-
-        marker
-          .addTo(map)
-          .bindPopup(
-            printAd(offer),
-            {
-              keepInView: true,
-            },
-          );
-      });
-  };
-
-  const setAddress = () => {
-    address.value = `${CENTER_LAT}, ${CENTER_LNG}`;
-  };
-
-  const removeMarkers = () => {
-    markers.forEach((marker) => {
-      map.removeLayer(marker);
     });
-
-    markers = [];
   };
+
+  createAdPins(createAds(QUANTITY));
+
+
 };
 
-export { getMap };
+const removeMarkers = (markers, map) => {
+  markers.forEach((marker) => {
+    map.removeLayer(marker);
+  });
+
+  markers = [];
+};
+
+export {
+  getMap,
+  removeMarkers
+};

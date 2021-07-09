@@ -33,8 +33,11 @@ const setPhotos = (parentElement, photos) => {
   });
 };
 
-const printAd = (ad, insertTo) => {
-  const { author, offer } = ad;
+const createCard = (ad) => {
+  const {
+    author,
+    offer,
+  } = ad;
   const cardElement = templateCard.cloneNode(true);
   cardElement.querySelector('.popup__avatar').src = author.avatar;
   cardElement.querySelector('.popup__title').textContent = offer.title;
@@ -48,7 +51,15 @@ const printAd = (ad, insertTo) => {
   cardElement.querySelector('.popup__description').textContent = offer.description;
   const photosListElement = cardElement.querySelector('.popup__photos');
   setPhotos(photosListElement, offer.photos);
+  return cardElement;
+};
+
+const printAd = (ad, insertTo) => {
+  const cardElement = createCard(ad);
   insertTo.appendChild(cardElement);
 };
 
-export { printAd };
+export {
+  createCard,
+  printAd
+};
