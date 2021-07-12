@@ -47,10 +47,18 @@ const createCard = (ad) => {
   cardElement.querySelector('.popup__text--capacity').textContent = `${offer.rooms} комнаты для ${offer.guests} гостей`;
   cardElement.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
   const featuresListElement = cardElement.querySelector('.popup__features');
-  setFeatures(featuresListElement, offer.features);
+  if (offer.feature && offer.features.length) {
+    setFeatures(featuresListElement, offer.features);
+  } else {
+    featuresListElement.remove();
+  }
   cardElement.querySelector('.popup__description').textContent = offer.description;
   const photosListElement = cardElement.querySelector('.popup__photos');
-  setPhotos(photosListElement, offer.photos);
+  if (offer.photos && offer.photos.length) {
+    setPhotos(photosListElement, offer.photos);
+  } else {
+    photosListElement.remove();
+  }
   return cardElement;
 };
 
