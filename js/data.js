@@ -1,4 +1,8 @@
-import { getRandomPositiveInteger, getRandomArrayElement, getRandomPositiveFloat } from './util.js';
+import {
+  getRandomPositiveInteger,
+  getRandomArrayElement,
+  getRandomPositiveFloat
+} from './util.js';
 
 const TYPES = [
   'palace',
@@ -83,4 +87,6 @@ const createAds = (count) => new Array(count).fill('').map((currentValue, index)
   };
 });
 
-export { createAds };
+export {
+  createAds
+};

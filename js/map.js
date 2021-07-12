@@ -2,8 +2,8 @@ import {
   createCard
 } from './ad.js';
 import {
-  createAds
-} from './data.js';
+  getFilters
+} from './filters.js';
 import {
   address
 } from './form.js';
@@ -15,9 +15,11 @@ const CENTER_LAT = 35.68950;
 const CENTER_LNG = 139.69171;
 const ZOOM = 10;
 const QUANTITY = 10;
+let markerGroup;
+let map;
 
 const getMap = () => {
-  const map = L.map('map-canvas')
+  map = L.map('map-canvas')
     .on('load', () => {
       enablePage();
       address.value = `${CENTER_LAT}, ${CENTER_LNG}`;
@@ -53,16 +55,22 @@ const getMap = () => {
     address.value = `${evt.target.getLatLng().lat.toFixed(5)}, ${evt.target.getLatLng().lng.toFixed(5)}`;
   });
 
-  const adIcon = L.icon({
-    iconUrl: '/img/pin.svg',
-    iconSize: [52, 52],
-    iconAnchor: [26, 52],
-  });
+  markerGroup = L.layerGroup().addTo(map);
+};
 
-  const markerGroup = L.layerGroup().addTo(map);
+const adIcon = L.icon({
+  iconUrl: '/img/pin.svg',
+  iconSize: [52, 52],
+  iconAnchor: [26, 52],
+});
 
-  const createAdPins = (ads) => {
-    ads.forEach((ad) => {
+let markers = [];
+
+const createAdPins = (ads) => {
+  ads
+    .filter(getFilters)
+    .slice(0, QUANTITY)
+    .forEach((ad) => {
       const {
         location,
       } = ad;
@@ -79,15 +87,16 @@ const getMap = () => {
             keepInView: true,
           },
         );
+      markers.push(marker);
     });
-  };
-
-  createAdPins(createAds(QUANTITY));
-
-
 };
 
-const removeMarkers = (markers, map) => {
+
+const setAddress = () => {
+  address.value = `${CENTER_LAT}, ${CENTER_LNG}`;
+};
+
+const removeMarkers = () => {
   markers.forEach((marker) => {
     map.removeLayer(marker);
   });
@@ -97,5 +106,7 @@ const removeMarkers = (markers, map) => {
 
 export {
   getMap,
-  removeMarkers
+  removeMarkers,
+  setAddress,
+  createAdPins
 };

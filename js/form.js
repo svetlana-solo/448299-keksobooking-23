@@ -1,4 +1,9 @@
-import { toggleFormElements } from './util.js';
+import {
+  toggleFormElements
+} from './util.js';
+//import {
+//  sendData
+//} from './api.js';
 
 const TYPE_MIN_COSTS = {
   bungalow: 0,
@@ -8,12 +13,8 @@ const TYPE_MIN_COSTS = {
   palace: 10000,
 };
 
-const ROOM_CAPACITY = {
-  1: '<option value="1">для 1 гостя</option>',
-  2: '<option value="2">для 2 гостей</option> <option value="1"> для 1 гостя</option>',
-  3: '<option value="3">для 3 гостей</option> <option value="2">для 2 гостей</option> <option value="1">для 1 гостя</option>',
-  100: '<option value="0">не для гостей</option>',
-};
+const MAX_ROOM_COUNT = 100;
+const MIN_ROOM_CAPACITY = 0;
 
 const form = document.querySelector('.ad-form');
 const addFormElements = Array.from(form.elements);
@@ -51,7 +52,15 @@ const onCheckTimeGroupChange = (evt) => {
 };
 
 const filterRoomCapacity = () => {
-  capacity.innerHTML = ROOM_CAPACITY[roomNumber.value];
+  if (roomNumber.value === MAX_ROOM_COUNT && capacity.value !== MIN_ROOM_CAPACITY) {
+    capacity.setCustomValidity('Выберите вариант "Не для гостей"');
+  } else if (roomNumber.value !== MAX_ROOM_COUNT && capacity.value === MIN_ROOM_CAPACITY) {
+    capacity.setCustomValidity('Выберите другой вариант');
+  } else if (roomNumber.value < capacity.value) {
+    capacity.setCustomValidity('Выберите меньшее число гостей');
+  } else {
+    capacity.setCustomValidity('');
+  }
 };
 
 const onTypeChange = () => {
@@ -65,6 +74,7 @@ const onRoomNumberChange = () => {
 type.addEventListener('change', onTypeChange);
 checkTimeGroup.addEventListener('change', onCheckTimeGroupChange);
 roomNumber.addEventListener('change', onRoomNumberChange);
+capacity.addEventListener('change', onRoomNumberChange);
 
 title.addEventListener('input', () => {
   title.reportValidity();
