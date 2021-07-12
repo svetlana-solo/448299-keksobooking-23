@@ -1,6 +1,6 @@
-//import {
-//  showAlert
-//} from './utils.js';
+import {
+  showAlert
+} from './util.js';
 
 const SERVER_GET_URL = 'https://23.javascript.pages.academy/keksobooking/data';
 const SERVER_POST_URL = 'https://23.javascript.pages.academy/keksobooking';
@@ -17,7 +17,7 @@ const getData = (onSuccess) => {
       onSuccess(data);
     })
     .catch(() => {
-      //showAlert('Не удалось получить данные с сервера. Попробуйте позже');
+      showAlert('Не удалось получить данные с сервера. Попробуйте позже');
     });
 };
 
