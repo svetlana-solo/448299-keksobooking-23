@@ -1,9 +1,6 @@
 import {
   toggleFormElements
 } from './util.js';
-//import {
-//  sendData
-//} from './api.js';
 
 const TYPE_MIN_COSTS = {
   bungalow: 0,
@@ -92,5 +89,6 @@ filterRoomCapacity();
 export {
   disableForm,
   enableForm,
+  form,
   address
 };

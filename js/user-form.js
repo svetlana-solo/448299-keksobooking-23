@@ -16,17 +16,21 @@ import {
 } from './map.js';
 import {
   isEscEvent
-} from './utils.js';
+} from './util.js';
+import {
+  initPhotoUploaders,
+  resetPreview
+} from './avatar.js';
 
 const mainElement = document.querySelector('main');
 
-const setUserFormSubmit = (onSuccess) => {
+const setUserFormSubmit = (onSuccess, onError) => {
 
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
     sendData(
-      () => onSuccess(),
-      () => showErrorMessage('Не удалось отправить форму. Попробуйте ещё раз'),
+      onSuccess,
+      onError,
       new FormData(evt.target),
     );
   });
@@ -105,6 +109,7 @@ const setClearButtonClick = function () {
   clearButton.addEventListener('click', (evt) => {
     evt.preventDefault();
     resetAddForm();
+    resetPreview();
   });
 };
 
@@ -113,11 +118,13 @@ setClearButtonClick();
 
 const onFormSubmitSuccess = () => {
   showSuccessMessage();
+  initPhotoUploaders();
   resetAddForm();
 };
 
 export {
   setUserFormSubmit,
   onFormSubmitSuccess,
-  showErrorMessage
+  showErrorMessage,
+  setClearButtonClick
 };
