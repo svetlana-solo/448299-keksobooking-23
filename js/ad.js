@@ -47,7 +47,7 @@ const createCard = (ad) => {
   cardElement.querySelector('.popup__text--capacity').textContent = `${offer.rooms} комнаты для ${offer.guests} гостей`;
   cardElement.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
   const featuresListElement = cardElement.querySelector('.popup__features');
-  if (offer.feature && offer.features.length) {
+  if (offer.features && offer.features.length) {
     setFeatures(featuresListElement, offer.features);
   } else {
     featuresListElement.remove();

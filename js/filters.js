@@ -51,9 +51,9 @@ const getFilterByGuests = (guests) => (guestsFilter.value !== ANY_FILTER) ? gues
 
 const getFilterByFeatures = (features) => {
   const selectedFeatures = featuresFilter.querySelectorAll('input:checked');
-  //if (!features) {
-  //  return false;
-  //}
+  if (!features) {
+    return false;
+  }
   return Array.from(selectedFeatures).every((input) =>
     features.includes(input.value));
 };
@@ -79,6 +79,7 @@ const setFilterChange = (cb) => {
 export {
   disableFilters,
   enableFilters,
+  filters,
   getFilters,
   setFilterChange
 };
