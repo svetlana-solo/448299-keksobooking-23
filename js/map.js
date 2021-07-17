@@ -12,12 +12,15 @@ const CENTER_LAT = 35.68950;
 const CENTER_LNG = 139.69171;
 const ZOOM = 10;
 const QUANTITY = 10;
+const DIGITS_AFTER_POINT = 5;
 
 const map = L.map('map-canvas')
   .setView({
     lat: CENTER_LAT,
     lng: CENTER_LNG,
   }, ZOOM);
+
+address.value = `${CENTER_LAT}, ${CENTER_LNG}`;
 
 const initMap = new Promise ((resolve) => {
   map.on('load', () => {
@@ -50,7 +53,7 @@ const mainMarker = L.marker({
 mainMarker.addTo(map);
 
 mainMarker.on('moveend', (evt) => {
-  address.value = `${evt.target.getLatLng().lat.toFixed(5)}, ${evt.target.getLatLng().lng.toFixed(5)}`;
+  address.value = `${evt.target.getLatLng().lat.toFixed(DIGITS_AFTER_POINT)}, ${evt.target.getLatLng().lng.toFixed(DIGITS_AFTER_POINT)}`;
 });
 
 const markerGroup = L.layerGroup().addTo(map);

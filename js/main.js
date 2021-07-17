@@ -1,7 +1,6 @@
 import {
   setFilterChange
 } from './filters.js';
-//import { initPhotoUploaders} from './avatar.js';
 import {
   initMap,
   createAdPins,

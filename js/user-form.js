@@ -54,15 +54,18 @@ const errorDiv = errorTemplate.querySelector('div');
 const errorButton = errorDiv.querySelector('.error__button');
 const errorElement = errorDiv.cloneNode(true);
 
+
 const onPopupEscKeydown = (evt) => {
   if (isEscEvent(evt)) {
     evt.preventDefault();
+    // eslint-disable-next-line no-use-before-define
     removeMessage();
   }
 };
 
 const onWindowClick = (evt) => {
   evt.preventDefault();
+  // eslint-disable-next-line no-use-before-define
   removeMessage();
 };
 
@@ -120,6 +123,7 @@ const onFormSubmitSuccess = () => {
   showSuccessMessage();
   initPhotoUploaders();
   resetAddForm();
+  resetPreview();
 };
 
 export {
