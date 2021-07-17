@@ -62,12 +62,6 @@ const createCard = (ad) => {
   return cardElement;
 };
 
-const printAd = (ad, insertTo) => {
-  const cardElement = createCard(ad);
-  insertTo.appendChild(cardElement);
-};
-
 export {
-  createCard,
-  printAd
+  createCard
 };
