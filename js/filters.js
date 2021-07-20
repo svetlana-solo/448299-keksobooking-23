@@ -58,7 +58,7 @@ const getFilterByFeatures = (features) => {
     features.includes(input.value));
 };
 
-const getFilters = ({
+const isFilterCorrect = ({
   offer,
 }) =>
   (
@@ -80,6 +80,6 @@ export {
   disableFilters,
   enableFilters,
   filters,
-  getFilters,
+  isFilterCorrect,
   setFilterChange
 };

@@ -4,7 +4,8 @@ import {
 import {
   initMap,
   createAdPins,
-  removeMarkers
+  removeMarkers,
+  setData
 } from './map.js';
 import {
   getData
@@ -28,11 +29,12 @@ const RERENDER_DELAY = 500;
 disablePage();
 initMap.then(
   getData((ads) => {
-    createAdPins(ads);
+    setData(ads);
+    createAdPins();
     setFilterChange(debounce(
       () => {
         removeMarkers();
-        createAdPins(ads);
+        createAdPins();
       }, RERENDER_DELAY));
     enablePage();
   }),

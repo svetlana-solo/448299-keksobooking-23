@@ -1,4 +1,4 @@
-const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+const TYPES = ['jpg', 'jpeg', 'png'];
 const PREVIEW_SIZE = 40;
 const PHOTO_SIZE = 70;
 const DEFAULT_AVATAR_SRC = 'img/muffin-grey.svg';
@@ -10,12 +10,12 @@ const photoContainer = document.querySelector('.ad-form__photo');
 
 const photoUploader = document.querySelector('.ad-form__upload input[type=file]');
 
-const setPreviewFiles = (selectedFile, container, size) =>
+const onPreviewFilesChange = (selectedFile, container, size) =>
   (evt) => {
     evt.preventDefault();
     const file = selectedFile.files[0];
     const fileName = file.name.toLowerCase();
-    const photoFile = FILE_TYPES.some((fileType) =>
+    const photoFile = TYPES.some((fileType) =>
       fileName.endsWith(fileType));
     if (!photoFile) {
       return;
@@ -35,8 +35,8 @@ const setPreviewFiles = (selectedFile, container, size) =>
   };
 
 const initPhotoUploaders = () => {
-  userUploader.addEventListener('change', setPreviewFiles(userUploader, userPreview, PREVIEW_SIZE));
-  photoUploader.addEventListener('change', setPreviewFiles(photoUploader, null, PHOTO_SIZE));
+  userUploader.addEventListener('change', onPreviewFilesChange(userUploader, userPreview, PREVIEW_SIZE));
+  photoUploader.addEventListener('change', onPreviewFilesChange(photoUploader, null, PHOTO_SIZE));
 
 
 };
@@ -53,5 +53,6 @@ const resetPreview = () => {
 
 export {
   initPhotoUploaders,
-  resetPreview
+  resetPreview,
+  DEFAULT_AVATAR_SRC
 };

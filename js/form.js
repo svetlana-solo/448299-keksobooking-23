@@ -49,15 +49,19 @@ const onCheckTimeGroupChange = (evt) => {
 };
 
 const filterRoomCapacity = () => {
-  if (roomNumber.value === MAX_ROOM_COUNT && capacity.value !== MIN_ROOM_CAPACITY) {
+  const roomNumberValue = Number(roomNumber.value);
+  const capacityValue = Number(capacity.value);
+
+  if (roomNumberValue === MAX_ROOM_COUNT && capacityValue !== MIN_ROOM_CAPACITY) {
     capacity.setCustomValidity('Выберите вариант "Не для гостей"');
-  } else if (roomNumber.value !== MAX_ROOM_COUNT && capacity.value === MIN_ROOM_CAPACITY) {
+  } else if (roomNumberValue !== MAX_ROOM_COUNT && capacityValue === MIN_ROOM_CAPACITY) {
     capacity.setCustomValidity('Выберите другой вариант');
-  } else if (roomNumber.value < capacity.value) {
+  } else if (roomNumberValue < capacityValue) {
     capacity.setCustomValidity('Выберите меньшее число гостей');
   } else {
-    capacity.setCustomValidity('');
+    capacity.setCustomValidity ('');
   }
+  capacity.reportValidity();
 };
 
 const onTypeChange = () => {
@@ -81,7 +85,7 @@ price.addEventListener('input', () => {
   price.reportValidity();
 });
 
-address.setAttribute('readonly', 'readonly');
+address.readOnly = true;
 
 setPriceAtributes();
 filterRoomCapacity();

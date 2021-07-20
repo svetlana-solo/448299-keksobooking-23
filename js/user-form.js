@@ -12,7 +12,8 @@ import {
   mainMarker,
   CENTER_LAT,
   CENTER_LNG,
-  setAddress
+  setAddress,
+  createAdPins
 } from './map.js';
 import {
   isEscEvent
@@ -43,12 +44,12 @@ const resetForm = () => {
 
 const resetFiltersForm = () => {
   filters.reset();
+  createAdPins();
 };
 
 const successTemplate = document.querySelector('#success').content;
 const successDiv = successTemplate.querySelector('div');
 const successElement = successDiv.cloneNode(true);
-
 const errorTemplate = document.querySelector('#error').content;
 const errorDiv = errorTemplate.querySelector('div');
 const errorButton = errorDiv.querySelector('.error__button');
@@ -96,7 +97,6 @@ const showErrorMessage = () => {
   errorButton.addEventListener('click', onWindowClick);
 };
 
-
 const resetAddForm = () => {
   resetForm();
   resetFiltersForm();
@@ -117,7 +117,6 @@ const setClearButtonClick = function () {
 };
 
 setClearButtonClick();
-
 
 const onFormSubmitSuccess = () => {
   showSuccessMessage();

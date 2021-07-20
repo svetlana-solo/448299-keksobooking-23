@@ -2,7 +2,7 @@ import {
   createCard
 } from './ad.js';
 import {
-  getFilters
+  isFilterCorrect
 } from './filters.js';
 import {
   address
@@ -13,6 +13,12 @@ const CENTER_LNG = 139.69171;
 const ZOOM = 10;
 const QUANTITY = 10;
 const DIGITS_AFTER_POINT = 5;
+
+let ads = [];
+
+const setData = (data) => {
+  ads = data;
+};
 
 const map = L.map('map-canvas')
   .setView({
@@ -38,8 +44,8 @@ L.tileLayer(
 
 const mainPinIcon = L.icon({
   iconUrl: '../img/main-pin.svg',
-  iconSize: [52, 52],
-  iconAnchor: [26, 52],
+  iconSizes: [52, 52],
+  iconAnchors: [26, 52],
 });
 
 const mainMarker = L.marker({
@@ -52,7 +58,7 @@ const mainMarker = L.marker({
 
 mainMarker.addTo(map);
 
-mainMarker.on('moveend', (evt) => {
+mainMarker.on('move', (evt) => {
   address.value = `${evt.target.getLatLng().lat.toFixed(DIGITS_AFTER_POINT)}, ${evt.target.getLatLng().lng.toFixed(DIGITS_AFTER_POINT)}`;
 });
 
@@ -60,20 +66,16 @@ const markerGroup = L.layerGroup().addTo(map);
 
 const adIcon = L.icon({
   iconUrl: '/img/pin.svg',
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
+  iconSizes: [40, 40],
+  iconAnchors: [20, 40],
 });
 
 let markers = [];
-
-const createAdPins = (ads) => {
-  ads
-    .filter(getFilters)
-    .slice(0, QUANTITY)
-    .forEach((ad) => {
-      const {
-        location,
-      } = ad;
+const createAdPins = () => {
+  for (let i = 0; i < ads.length && markers.length < QUANTITY; i++) {
+    const ad = ads[i];
+    if (isFilterCorrect(ad)) {
+      const { location } = ad;
       const marker = L.marker({
         lat: location.lat,
         lng: location.lng,
@@ -88,7 +90,8 @@ const createAdPins = (ads) => {
           },
         );
       markers.push(marker);
-    });
+    }
+  }
 };
 
 const setAddress = () => {
@@ -110,5 +113,6 @@ export {
   CENTER_LAT,
   CENTER_LNG,
   mainMarker,
-  initMap
+  initMap,
+  setData
 };

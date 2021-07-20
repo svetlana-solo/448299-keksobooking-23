@@ -8,8 +8,6 @@ import {
 } from './filters.js';
 import { initPhotoUploaders} from './avatar.js';
 
-//const mapCanvas = document.querySelector('.map__canvas');
-
 const disablePage = () => {
   disableForm();
   disableFilters();
