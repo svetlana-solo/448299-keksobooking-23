@@ -44,8 +44,8 @@ L.tileLayer(
 
 const mainPinIcon = L.icon({
   iconUrl: '../img/main-pin.svg',
-  iconSizes: [52, 52],
-  iconAnchors: [26, 52],
+  iconSize: [52, 52],
+  iconAnchor: [26, 52],
 });
 
 const mainMarker = L.marker({
@@ -66,8 +66,8 @@ const markerGroup = L.layerGroup().addTo(map);
 
 const adIcon = L.icon({
   iconUrl: '/img/pin.svg',
-  iconSizes: [40, 40],
-  iconAnchors: [20, 40],
+  iconSize: [40, 40],
+  iconAnchor: [20, 40],
 });
 
 let markers = [];
